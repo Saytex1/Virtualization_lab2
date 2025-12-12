@@ -43,4 +43,4 @@ jobs:
           file: ./Dockerfile_db   # Path to the DB Dockerfile
           push: true
           # Tags: hello12x/lab2_db:latest
-          tags: ${{ secrets.DOCKER_USERNAME }}/lab2_db:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/lab2_db:latests
