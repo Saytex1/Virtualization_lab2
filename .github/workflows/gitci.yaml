@@ -1,0 +1,38 @@
+name: Super-Linter
+
+on: push
+
+jobs:
+  super-lint:
+    name: Lint code base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run Super-Linter
+        #uses: github/super-linter@v3
+        uses: github/super-linter@v3.17.0
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Set up Docker Builder
+        uses: docker/setup-buildx-action@v1
+      - name: Build and push your image of Web app to Docker
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Path_to_the_dockerfile_from_gitpull_root_folder
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/repository_web_name:your_tag
+      - name: Build and push your image of the DB to Docker
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Path_to_the_dockerfile_from_gitpull_root_folder
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/repository__db_name:your_tag
