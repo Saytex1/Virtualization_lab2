@@ -46,4 +46,3 @@ def index():
 if __name__ == "__main__":
     # host='0.0.0.0' obligatoire pour que Docker laisse passer le trafic
     app.run(debug=True, host="0.0.0.0")
-# <-- DO NOT REMOVE THIS FINAL BLANK LINE (Fixes W292)
